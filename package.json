@@ -1,0 +1,33 @@
+{
+  "name": "mernauth",
+  "version": "1.0.0",
+  "main": "./backend/index.js",
+  "type": "module",
+  "scripts": {
+  "dev": "cross-env NODE_ENV=development nodemon backend/index.js",
+  "start": "cross-env NODE_ENV=production node backend/index.js",
+  "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+}
+,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.3",
+    "nodemailer": "^7.0.3",
+    "react-otp-input": "^3.1.1",
+    "react-password-checklist": "^1.8.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.10"
+  }
+}

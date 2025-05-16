@@ -1,0 +1,8 @@
+here, generateTokenAndSetCookie is called in signup function,
+i think it should be called only after verify email
+
+think of lastLogin, is it actually needed? and is default case is needed in model
+
+combine the verifyToken and checkAuth, as done by chatgpt
+
+in frontend, in userstore, in signup userAuthenticated=true, i think it shoudld be only after verify otp
