@@ -11,8 +11,10 @@ userrouter.post("/signup", signup)
 userrouter.post("/login", login)
 userrouter.post("/logout", logout)
 userrouter.post("/verify-email", verifyEmail)
-userrouter.post("/forgot-password", forgotPassword)
-userrouter.post("/reset-password/:token", resetPassword)
+
+
+// userrouter.post("/forgot-password", forgotPassword)
+// userrouter.post("/reset-password/:token", resetPassword)
 
 
 
