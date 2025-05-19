@@ -49,6 +49,29 @@ export const useUserStore = create((set) => ({
         }
     },
 
+    forgotPassword: async (email)=> {
+        set({isLoading:true, error:null})
+        try {
+            const response = await axios.post(`${USER_API_URL}/forgot-password`, {email})
+            set({error:null, isLoading:false, message:response.data.message})
+        } catch (error) {
+            set({isLoading:false, error:error.response.data.message || "Error sending reset password email"})
+            throw error;
+        }
+    },
+    
+    resetPassword: async (token, password)=> {
+        set({isLoading:true, error:null})
+        try {
+            const response = await axios.post(`${USER_API_URL}/reset-password/${token}`, {password})
+            set({error:null, isLoading:false, message:response.data.message})
+        } catch (error) {
+            set({isLoading:false, error:error.response.data.message || "Error resetting password"})
+            throw error;
+            
+        }
+    },
+
     logout: async ()=> {
         set({isLoading:true, error:null})
         try {

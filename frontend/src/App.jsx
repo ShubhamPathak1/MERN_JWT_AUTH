@@ -11,6 +11,8 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { useUserStore } from './store/UserStore'
 import Skeleton from './components/Skeleton'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 
 
 const ProtectedRoute = ({children}) => {
@@ -52,6 +54,10 @@ const App = () => {
       <Route path='/login' element={<RedirectAuthenticatedUser><LoginPage /></RedirectAuthenticatedUser>} />
       <Route path='/signup' element={<RedirectAuthenticatedUser><SignupPage /></RedirectAuthenticatedUser>} />
       <Route path='/verify-otp' element={<OTPVerificationPage />} />
+      <Route path='/forgot-password' element={<RedirectAuthenticatedUser><ForgotPasswordPage /></RedirectAuthenticatedUser>} />
+      <Route path='/reset-password/:token' element={<RedirectAuthenticatedUser><ResetPasswordPage /></RedirectAuthenticatedUser>} />
+
+
 
       {/* catch all other routes, and redirect to dashboard page */}
       <Route path='*' element={<Navigate to={"/"} replace />} />
