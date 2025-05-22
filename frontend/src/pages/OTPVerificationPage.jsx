@@ -5,13 +5,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useUserStore } from '../store/UserStore';
 import { Typography } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
+import {toast} from "react-hot-toast"
 
 const OTPVerificationPage = () => {
   const [otp, setOtp] = useState('');
 
   const navigate = useNavigate();
 
-  const {verifyEmail, error, isLoading} = useUserStore();
+  const {verifyEmail, error, isLoading, user, resendOtp} = useUserStore();
 
   const handleOTPSubmit = async (e)=> {
     e.preventDefault();
@@ -20,6 +21,16 @@ const OTPVerificationPage = () => {
       navigate("/");
     } catch (error) {
         console.log(error);
+    }
+  }
+
+  const handleResetOTP = async ()=> {
+    try {
+      await resendOtp(user.id)
+      toast.success("OTP resent to your email.");
+    } catch (error) {
+      console.log(error)
+      toast.error("Can't resend OTP")
     }
   }
 
@@ -59,7 +70,10 @@ const OTPVerificationPage = () => {
           >
           Verify OTP
         </Button>
-<Link to="/resend-otp" className='text-blue-500 hover:underline'>Resend OTP</Link>
+
+{/* <Link to="/resend-otp" className='text-blue-500 hover:underline'>Resend OTP</Link> */}
+<Typography color="blue" variant='body2' gutterBottom  className='hover:underline' onClick={handleResetOTP}>Resend OTP</Typography>
+
           </form>
 
     </div>

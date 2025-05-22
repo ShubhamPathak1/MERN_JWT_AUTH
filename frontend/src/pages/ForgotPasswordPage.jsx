@@ -46,7 +46,7 @@ const ForgotPasswordPage = () => {
         : 
             <div className='flex flex-col items-center w-full h-screen justify-center gap-2'> 
             <EmailIcon className='bg-gray-200 rounded-full p-1' />
-            <Typography variant="body1" gutterBottom className='max-w-xl text-center'> If an account exists for {email}, you will receive a password reset link shortly.</Typography>
+            <Typography variant="body1" gutterBottom className='max-w-xl text-center'> You will receive a Password Reset Link shortly on your email {email}</Typography>
             </div>
        }
         </div>

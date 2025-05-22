@@ -92,6 +92,16 @@ export const useUserStore = create((set) => ({
         } catch (error) {
             set({ error:null, isCheckingAuth:false, isAuthenticated:false})
         }
+    },
+
+    resendOtp: async (id)=> {
+        set({isLoading:true, error:null})
+        try {
+            const response = await axios.post(`${USER_API_URL}/resend-otp`, {id});
+            set({isLoading:false, user:response.data.user})
+        } catch (error) {
+            set({error:error.response.data.message || "Error resending otp", isLoading:false})
+        }
     }
 
 }))

@@ -3,6 +3,7 @@ import { User } from "../models/auth.model.js";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 import { sendForgetPasswordEmail, sendResetPasswordSuccessEmail, sendVerificationEmail, sendWelcomeEmail } from "../mail/emails.js";
 import crypto from "node:crypto"
+import generateVerificationToken from "../utils/generateVerificationToken.js";
 
 
 export const signup = async (req, res)=> {
@@ -18,14 +19,15 @@ export const signup = async (req, res)=> {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const verificationToken = (Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000).toString();
+        // const verificationToken = (Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000).toString();
+        const verificationToken = generateVerificationToken();
 
         const user = new User({
             username, 
             email, 
             password:hashedPassword,
             verificationToken:verificationToken,
-            verificationTokenExpiresAt: Date.now() + 15*60*1000
+            verificationTokenExpiresAt: Date.now() + 1*60*1000 // RESET TO 15 : TODO
         })
         await user.save();
 
@@ -40,6 +42,28 @@ export const signup = async (req, res)=> {
         res.status(500).json({success:false, message:error.message})
     }
     
+}
+
+export const resendOtp = async (req, res)=> {
+    const {id} = req.body; 
+    try {
+        const user = await User.findOne({verificationTokenExpiresAt:{$lt:Date.now()}, _id:id})
+        if (!user) {
+            return res.status(400).json({success:false, message:"Can't Send New OTP"})
+        }
+
+        const verificationToken = generateVerificationToken();
+        user.verificationToken = verificationToken;
+        user.verificationTokenExpiresAt = Date.now() + 15*60*1000;       
+        await user.save();
+        await sendVerificationEmail(user.email, verificationToken)
+
+        res.status(200).json({success:true, message:"OTP resent"})
+        
+    } catch (error) {
+        console.log("Error resending otp: ", error.message)
+        res.status(500).json({success:false, message:error.message})
+    }
 }
 
 export const login = async (req, res)=> {

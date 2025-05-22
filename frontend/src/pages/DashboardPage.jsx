@@ -14,6 +14,7 @@ const DashboardPage = () => {
   return (
     <div className='flex flex-col w-full h-screen justify-center items-center'>
       <Typography variant='h4' gutterBottom>Welcome {user.username}</Typography>
+      <Typography variant='body1' gutterBottom>{user.email} </Typography>
       <Button 
           variant="contained" 
           className='w-60'
