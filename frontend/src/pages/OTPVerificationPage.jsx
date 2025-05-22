@@ -72,7 +72,7 @@ const OTPVerificationPage = () => {
         </Button>
 
 {/* <Link to="/resend-otp" className='text-blue-500 hover:underline'>Resend OTP</Link> */}
-<Typography color="blue" variant='body2' gutterBottom  className='hover:underline' onClick={handleResetOTP}>Resend OTP</Typography>
+<Typography color="blue" variant='body2' gutterBottom  className='hover:underline cursor-pointer'disabled={!user} onClick={handleResetOTP}>Resend OTP</Typography>
 
           </form>
 
